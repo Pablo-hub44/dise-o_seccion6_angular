@@ -1,10 +1,12 @@
-<div id="traffic">
-    
-    <p>Last 7 days</p>
+<!-- ya no usado, pk usamos el :host puesto en el @component -->
+<!-- <div id="traffic"> -->
 
-    <div id="chart">
-      @for (dataPoint of dummyTrafficData; track dataPoint.id) {
-        <div [style.height]="(dataPoint.value / maxTraffic) * 100 + '%'"></div>
-      }
-    </div>
-  </div>
+<p>Last 7 days</p>
+
+<div id="chart">
+    @for (dataPoint of dummyTrafficData; track dataPoint.id) {
+    <!-- tambien se puede poner estilos vinculados de esta manera-->
+    <div [style.height]="(dataPoint.value / maxTraffic) * 100 + '%'"></div>
+    }
+</div>
+<!-- </div> -->

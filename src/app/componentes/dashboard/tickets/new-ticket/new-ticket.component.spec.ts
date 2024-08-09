@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewTicketComponent } from './new-ticket.component';
+import { ControlComponent } from '../../../../shared/control/control.component';
 
 describe('NewTicketComponent', () => {
   let component: NewTicketComponent;
@@ -8,7 +9,7 @@ describe('NewTicketComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NewTicketComponent]
+      imports: [NewTicketComponent, ControlComponent]
     })
     .compileComponents();
 
