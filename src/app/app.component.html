@@ -1,0 +1,32 @@
+<app-header></app-header>
+
+<main>
+  <div id="dashboard">
+    <!--<div class="dashboard-item">
+      <app-server-status></app-server-status>
+    </div>
+
+    <div class="dashboard-item">
+      <app-trafico></app-trafico>
+    </div>
+
+    <div class="dashboard-item">
+      <app-ticket></app-ticket>
+    </div> antes-->
+
+    <app-dashboard-item [image]="{src: 'status.png', alt: 'A signal simbol'}" title="Status del server">
+      <app-server-status></app-server-status>
+    </app-dashboard-item>
+
+    
+
+    <app-dashboard-item [image]="{src: 'globe.png', alt: ''}" title="Trafico">
+      <app-trafico></app-trafico>
+    </app-dashboard-item>
+
+    <app-dashboard-item [image]="{src: 'list.png', alt: 'lista de items'}" title="Soporte de tickets">
+      <app-tickets></app-tickets>
+    </app-dashboard-item>
+    
+  </div>
+</main>
