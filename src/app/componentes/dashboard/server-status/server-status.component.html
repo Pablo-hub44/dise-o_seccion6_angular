@@ -6,16 +6,16 @@
 <!-- forma 2 con objetos y asi se le asignan clases y stilos 'dinamicamente', algo que facilmente se le podria hacer validacion en la propia etiqueta con operadores ternarios pero bueno -->
 <div [class]="{
   status: true,
-  'status-online': currentStatus === 'online',
-  'status-offine': currentStatus === 'offline',
-  'status-unknow': currentStatus === 'unknown'
+  'status-online': currentStatus() === 'online',
+  'status-offine': currentStatus() === 'offline',
+  'status-unknow': currentStatus() === 'unknown'
  }" [style]="{
   
  }">
-    @if (currentStatus === 'online') {
+    @if (currentStatus() === 'online') {
     <p>Servers estan en linea</p>
     <p>All systems are operational.</p>
-    } @else if (currentStatus === 'offline') {
+    } @else if (currentStatus() === 'offline') {
     <p>Servers are offline</p>
     <p>Functionality should be restored soon.</p>
     } @else {

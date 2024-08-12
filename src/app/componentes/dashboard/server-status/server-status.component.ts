@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, DestroyRef, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
 
 @Component({
   selector: 'app-server-status',
@@ -10,15 +10,36 @@ import { Component, DestroyRef, inject, OnDestroy, OnInit } from '@angular/core'
 
 //implementamos OnInit para que sobreescribamos ngOnInit y nos lo pida afuerzas :) y ahi hay mas hooks
 export class ServerStatusComponent implements OnInit, OnDestroy {
-  //le podemos asignar strings especificos a una propiedad
-  currentStatus: 'online'|'offline'|'unknown' = 'offline';
+  //le podemos asignar strings especificos a una propiedad, sinsignal
+  // currentStatus: 'online'|'offline'|'unknown' = 'offline';
+
+  currentStatus =signal<'online'|'offline'|'unknown'>('offline');
 
   private interval?:any; // NodeJS.Timeout; //propiedad para el intervalo
 
   //para usar cleanup
   private destroyRef = inject(DestroyRef);
 
-  constructor(){}
+  constructor(){
+    console.log(this.currentStatus());
+    //otro hook; Create a global Effect for the given reactive function.
+    effect(()=>{
+      console.log(this.currentStatus());
+      
+    })
+
+    /**
+     * ejemplo effect((onCleanup) => {
+  const tasks = getTasks();
+  const timer = setTimeout(() => {
+    console.log(`Current number of tasks: ${tasks().length}`);
+  }, 1000);
+  onCleanup(() => {
+    clearTimeout(timer);
+  });
+});
+     */
+  }
 
 
   //metodo que se inicializa cuando la pagina carga, metodo de angular muy util
@@ -27,11 +48,12 @@ export class ServerStatusComponent implements OnInit, OnDestroy {
       const random = Math.random() * 10;//0 - 10
 
       if (random < 5) {
-        this.currentStatus = 'online';
+        // this.currentStatus = 'online';//sin signal
+        this.currentStatus.set('online');// set the signal to a new value, and notify any dependents.
       }else if(random <9){
-        this.currentStatus = 'offline';
+        this.currentStatus.set('offline');
       }else{
-        this.currentStatus = 'unknown';
+        this.currentStatus.set('unknown');
       }
     }, 3000);
 

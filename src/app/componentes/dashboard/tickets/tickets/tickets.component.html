@@ -1,5 +1,18 @@
+<div class="">
+    <ul>
+        @for(ticket of tickets; track ticket.id){
+        <li>
+            <app-ticket [data]="ticket" (close)="onCloseTicket(ticket.id)"></app-ticket>{{$first}}
+            <!-- se pueden usar variables como $first $last $odd $even, $count claro cada uno muestra algo diferente-->
+        </li>
+        }@empty {
+        <!-- si el array esta vacio se mostrara esto-->
+        <p>Ningun ticket disponible.</p>
+        }
+    </ul>
+</div>
 
 <div id="new-ticket">
-    <app-new-ticket></app-new-ticket>
-    
-  </div>
+    <app-new-ticket (add)="onAdd($event)"></app-new-ticket>
+
+</div>

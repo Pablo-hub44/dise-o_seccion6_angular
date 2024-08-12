@@ -1,4 +1,4 @@
-import { Component, ContentChild, contentChildren, ElementRef, HostBinding, HostListener, inject, input, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, afterNextRender, afterRender, AfterViewInit, Component, contentChild, ContentChild, contentChildren, ElementRef, HostBinding, HostListener, inject, input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-control',//lo que se selecciona aqui se renderiza en el dom
@@ -16,7 +16,8 @@ import { Component, ContentChild, contentChildren, ElementRef, HostBinding, Host
     '(click)':'onClick()'//podemos invocar metodos tambien
   }
 })
-export class ControlComponent {
+export class ControlComponent implements AfterContentInit{
+
   //otra alternativa al uso de host podemos declarar la clase aqui, pero la otra opcion es mas recomendada
   //@HostBinding() className = 'control';
   // @HostListener('click') onClick(){
@@ -27,17 +28,36 @@ export class ControlComponent {
   private element = inject(ElementRef)//angular le dara acceso al elemento anfitrion de ese componente, acceso programatico al elemeto antifrion
 
 
-  //
-  @ContentChild() private control; //necesita un selector
+  //con esto hacemos contenido proyectado
+  //@ContentChild('input') private control?: ElementRef<HTMLInputElement | HTMLTemplateElement>; //necesita un selector
 
+  //con signal,otra forma mas moderna para versiones >17.3
+  private control = contentChild<ElementRef<HTMLInputElement|HTMLTextAreaElement>>('input')
 
+  //hook para q se ejeucte luego de que el contenido se inicialice, si ponemos aqui garantizamos obtener tale svalores que se seleccionan con el selector content child si 
+  ngAfterContentInit(): void {
+    //..throw new Error('Method not implemented.');
+  }
 
+  constructor(){
+    //hooks,este se ejecuta cada ves que se produce un cambio en toda la aplicacion de angular
+    afterRender(()=>{
+      console.log('after render');
+      
+    });
 
+    //este no se vuelve a bloquear, este igual en toda la aplicacion de angular , se ejecuta pocas veces
+    afterNextRender(()=>{
+      console.log('afterNextRender');
+      
+    });
+  }
 
 
   onClick(){
     console.log('clickeado');
     console.log(this.element);
+    console.log(this.control());//con parentesis porque ahora usa signal
     
   }
 

@@ -1,13 +1,14 @@
-<form action="" (ngSubmit)="onSubmit(title.value, request.value)" #form>
+<form action="" (ngSubmit)="onSubmit()" #form>
+    <!-- antes onSubmit(title.value, request.value) -->
     <!-- antes (ngSubmit)="onSubmit(title)" -->
     <!-- antes p, ahora usando nuestra etiqueta personalizada -->
     <app-control class="control" label="Titulo">
         <!-- <label for="">Titulo</label> este ya no pk ya esta en la etiqueta personalizada-->
-        <input type="" name="title" id="title" #title>
+        <input type="" name="title" id="title" [(ngModel)]="title">
         <!-- [(ngModel)]="title"-->
     </app-control>
     <app-control label="Request" class="control">
-        <textarea type="text" name="request" id="request" rows="3" #request></textarea>
+        <textarea type="text" name="request" id="request" rows="3" #request [(ngModel)]="request"></textarea>
     </app-control>
     <p><button appButton>
         Enviar <span class="icon">></span>
